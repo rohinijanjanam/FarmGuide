@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- Header -->
+<header class="header">
+    <h1>FarmGuide🌾</h1>
+    <p class="subtitle">Your Companion for Smart Farming</p>
+</header>
+
+<!-- Main content -->
+<main class="container home-main">
+
+    <a href="{{ url_for('scan') }}" class="feature-btn">
+        Scan Crop 🌿
+    </a>
+
+    <a href="{{ url_for('price') }}" class="feature-btn">
+        Price Prediction 📊
+    </a>
+
+    <a href="{{ url_for('advisory') }}" class="feature-btn">
+        Advisory 🤖
+    </a>
+
+</main>
+
+<footer class="footer">
+    <p>&copy; 2026 FarmGuide. All rights reserved.</p>
+</footer>
+
+{% endblock %}

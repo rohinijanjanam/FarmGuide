@@ -1,0 +1,200 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<header class="header">
+    <h1>Advisory 🤖</h1>
+</header>
+
+<main class="container advisory-main">
+
+    <!-- Chatbox -->
+    <div class="chat-box" id="chatboxArea"></div>
+
+    <!-- Input -->
+    <form id="advisoryForm" class="chat-input-area">
+        <input type="text" id="userInput" placeholder="Ask about your crop..." required autocomplete="off">
+        <button type="submit" class="action-btn">Send</button>
+    </form>
+
+</main>
+
+<footer class="footer">
+    <p>&copy; 2026 FarmGuide.</p>
+</footer>
+
+<script>
+const chatbox = document.getElementById('chatboxArea');
+
+// Add message to chat
+function addMessage(text, sender) {
+    const msg = document.createElement("div");
+    msg.classList.add("chat-message", sender);
+    msg.innerText = text;
+
+    chatbox.appendChild(msg);
+    chatbox.scrollTop = chatbox.scrollHeight;
+}
+
+// AI logic
+function getBotResponse(input) {
+    input = input.toLowerCase();
+
+    // 🌿 Nutrient deficiencies
+    if (input.includes("yellow")) {
+        return "🌿 Yellow leaves may indicate nitrogen deficiency. Apply nitrogen-rich fertilizer.";
+    } 
+    else if (input.includes("purple")) {
+        return "🟣 Purple leaves may indicate phosphorus deficiency.";
+    }
+    else if (input.includes("brown tips")) {
+        return "🍂 Brown leaf tips may indicate potassium deficiency.";
+    }
+    else if (input.includes("pale")) {
+        return "🌱 Pale leaves suggest lack of nutrients. Use balanced fertilizer.";
+    }
+
+    // 🦠 Diseases
+    else if (input.includes("spots")) {
+        return "🦠 Leaf spots detected. Apply fungicide and remove infected leaves.";
+    } 
+    else if (input.includes("blight")) {
+        return "⚠️ Blight detected. Use fungicide and avoid excess moisture.";
+    }
+    else if (input.includes("rust")) {
+        return "🟤 Rust disease detected. Apply sulfur-based fungicide.";
+    }
+    else if (input.includes("mold") || input.includes("fungus")) {
+        return "🧫 Fungal infection detected. Improve airflow and apply fungicide.";
+    }
+    else if (input.includes("rot")) {
+        return "🧪 Rot may be caused by excess moisture. Improve drainage.";
+    }
+
+    // 💧 Water issues
+    else if (input.includes("dry")) {
+        return "💧 Soil is dry. Increase watering.";
+    } 
+    else if (input.includes("overwater")) {
+        return "⚠️ Overwatering detected. Reduce watering and improve drainage.";
+    }
+    else if (input.includes("wilting")) {
+        return "🥀 Wilting may be due to lack of water or root damage.";
+    }
+
+    // 🐛 Pests
+    else if (input.includes("insects") || input.includes("pest")) {
+        return "🐛 Pest attack detected. Use neem oil or pesticide.";
+    }
+    else if (input.includes("aphids")) {
+        return "🐞 Aphids detected. Spray neem oil or soap solution.";
+    }
+    else if (input.includes("caterpillar")) {
+        return "🐛 Caterpillars can damage leaves. Use organic pesticides.";
+    }
+    else if (input.includes("whiteflies")) {
+        return "🪰 Whiteflies detected. Use sticky traps or neem oil.";
+    }
+
+    // 🌾 Crop-specific advice
+    else if (input.includes("rice")) {
+        return "🌾 Rice needs flooded conditions and warm climate.";
+    } 
+    else if (input.includes("wheat")) {
+        return "🌾 Wheat grows best in cool climate and well-drained soil.";
+    }
+    else if (input.includes("maize") || input.includes("corn")) {
+        return "🌽 Maize requires full sunlight and moderate watering.";
+    }
+    else if (input.includes("cotton")) {
+        return "🌱 Cotton needs warm weather and pest monitoring.";
+    }
+    else if (input.includes("sugarcane")) {
+        return "🍬 Sugarcane needs plenty of water and sunlight.";
+    }
+    else if (input.includes("tomato")) {
+        return "🍅 Tomatoes need support, sunlight, and regular watering.";
+    }
+    else if (input.includes("potato")) {
+        return "🥔 Potatoes need loose soil and proper drainage.";
+    }
+
+    // 🌍 Soil issues
+    else if (input.includes("soil")) {
+        return "🌍 Use fertile, well-drained soil. Add compost regularly.";
+    }
+    else if (input.includes("ph")) {
+        return "🧪 Maintain soil pH between 6–7 for most crops.";
+    }
+    else if (input.includes("fertility")) {
+        return "🌱 Improve soil fertility with organic compost.";
+    }
+
+    // ☀️ Weather conditions
+    else if (input.includes("rain")) {
+        return "🌧️ Excess rain can damage crops. Ensure drainage.";
+    }
+    else if (input.includes("heat")) {
+        return "☀️ High temperature can stress crops. Irrigate properly.";
+    }
+    else if (input.includes("cold") || input.includes("frost")) {
+        return "❄️ Frost can damage crops. Use protective covers.";
+    }
+    else if (input.includes("wind")) {
+        return "🌬️ Strong winds can damage plants. Use windbreaks.";
+    }
+
+    // 🌱 Growth problems
+    else if (input.includes("slow growth")) {
+        return "📉 Slow growth may be due to poor nutrients or soil.";
+    }
+    else if (input.includes("no growth")) {
+        return "⚠️ No growth may indicate poor soil or disease.";
+    }
+
+    // 🌾 Farming practices
+    else if (input.includes("fertilizer")) {
+        return "🧪 Use NPK fertilizers for balanced growth.";
+    }
+    else if (input.includes("harvest")) {
+        return "🌾 Harvest crops at maturity for best yield.";
+    }
+    else if (input.includes("irrigation")) {
+        return "💧 Use proper irrigation methods like drip irrigation.";
+    }
+    else if (input.includes("weed")) {
+        return "🌿 Remove weeds regularly to avoid competition.";
+    }
+
+    // 🤖 Default
+    else {
+        return "🤖 I can help with diseases, pests, soil, weather, and crops. Try asking something like 'yellow leaves', 'pest attack', or 'rice farming'.";
+    }
+}
+// Send message
+document.getElementById('advisoryForm').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const inputField = document.getElementById('userInput');
+    const userMsg = inputField.value;
+
+    if (!userMsg.trim()) return;
+
+    addMessage(userMsg, "user");
+    inputField.value = "";
+
+    setTimeout(() => {
+        const reply = getBotResponse(userMsg);
+        addMessage(reply, "bot");
+    }, 700);
+});
+
+// Enter key support
+document.getElementById("userInput").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        document.getElementById("advisoryForm").dispatchEvent(new Event('submit'));
+    }
+});
+</script>
+
+{% endblock %}
