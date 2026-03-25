@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FarmGuide</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+  <!-- 🔁 Page Content will come here -->
+  {% block content %}{% endblock %}
+
+  <!-- 🔻 Bottom Navigation (only written ONCE) -->
+  {% if show_navbar %}
+<nav class="bottom-nav">
+    <a href="{{ url_for('home') }}" class="nav-item {% if request.path == '/home' %}active{% endif %}">
+        <div class="icon">🏠</div>
+        <div>Home</div>
+    </a>
+
+    <a href="{{ url_for('scan') }}" class="nav-item {% if request.path == '/scan' %}active{% endif %}">
+        <div class="icon">🌿</div>
+        <div>Scan</div>
+    </a>
+
+    <a href="{{ url_for('price') }}" class="nav-item {% if request.path == '/price' %}active{% endif %}">
+        <div class="icon">📊</div>
+        <div>Price</div>
+    </a>
+
+    <a href="{{ url_for('advisory') }}" class="nav-item {% if request.path == '/advisory' %}active{% endif %}">
+        <div class="icon">🤖</div>
+        <div>Advisory</div>
+    </a>
+</nav>
+{% endif %}
+</body>
+</html>
