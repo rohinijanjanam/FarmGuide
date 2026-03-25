@@ -33,7 +33,8 @@ def advisory():
 
 
 if __name__ == '__main__':
-from flask import Flask, render_template, request, redirect, url_for
+    if __name__ == '__main__':
+    app.run(debug=True)
 
 app = Flask(__name__)
 
